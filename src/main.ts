@@ -1,4 +1,3 @@
-const message: string = 'Boilerplate created!'
+const message: string = 'Checking husky'
 
 console.log(message)
-
