@@ -1,0 +1,50 @@
+{
+  "name": "nodejs-aws-lambda-ses-email-notification",
+  "version": "1.0.0",
+  "description": "5.2 Email notification with SES",
+  "author": "Maksim Khitrov <khitrov.maks@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "nodejs",
+    "foxminded",
+    "typescript",
+    "aws",
+    "lambda",
+    "ses",
+    "email"
+  ],
+  "homepage": "https://git.foxminded.ua/foxstudent103641/nodejs-aws-lambda-ses-email-notification.git",
+  "repository": {
+    "type": "git",
+    "url": "https://git.foxminded.ua/foxstudent103641/nodejs-aws-lambda-ses-email-notification.git"
+  },
+  "main": "main.js",
+  "type": "module",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "scripts": {
+    "dev": "npx nodemon",
+    "build": "rimraf ./build && npx tsc",
+    "start": "npm run build && node build/main ",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src && prettier -c \"./src/**/*.ts\"",
+    "format": "eslint ./src --fix && prettier --write \"./src/**/*.ts\"",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.2",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
