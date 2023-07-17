@@ -8,6 +8,6 @@
 Design and implement AWS Lambda what can be used for handling contact form with fields: question, user email and name. It should send two emails: to user and to admin.
 
 #### AWS Lambda runtime settings.
-**Language**: Node.js 18.x
-**HandlerInfo**: src/index.controller
-**ArchitectureInfo**: x86_64
+- **Language**: Node.js 18.x.
+- **HandlerInfo**: src/index.controller
+- **ArchitectureInfo**: x86_64
