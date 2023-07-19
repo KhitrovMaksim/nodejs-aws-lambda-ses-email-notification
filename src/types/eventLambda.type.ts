@@ -1,4 +1,4 @@
-export interface Event {
+export type EventLambda = {
   body: string
   requestContext: {
     http: {

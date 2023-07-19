@@ -1,19 +1,22 @@
 import { ContactFormPresenter } from './presenter/contactForm.presenter'
 import { SuccessfullySubmittedPresenter } from './presenter/successfullySubmitted.presenter'
-import { ContactFormFields } from './ContactFormFields.interface'
-import { Event } from './event.interface'
+import { ContactFormFields } from './types/contactFormFields.type'
+import { EventLambda } from './types/eventLambda.type'
 import { ContentTypes } from './enums/http/contentTypes'
 import { Headers } from './enums/http/headers'
 import { ResponseStatusCodes } from './enums/http/responseStatusCodes'
-import { HttpResponse } from './httpResponse.interface'
+import { EmailService } from './services/email.servise'
+import { Error } from './presenter/error.presenter'
 
-export const controller = async (event: Event) => {
+export const controller = async (event: EventLambda) => {
   const httpMethod: string = event.requestContext.http.method
 
-  let response: HttpResponse = {
-    statusCode: ResponseStatusCodes.OK,
-    headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
-    body: ContactFormPresenter.getHtml(),
+  if (httpMethod === 'GET') {
+    return {
+      statusCode: ResponseStatusCodes.OK,
+      headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
+      body: ContactFormPresenter.getHtml(),
+    }
   }
 
   if (httpMethod === 'POST') {
@@ -25,12 +28,27 @@ export const controller = async (event: Event) => {
       email: formDataDecoded.split('&')[2].split('=')[1].replace('%40', '@'),
     }
 
-    response = {
-      statusCode: ResponseStatusCodes.OK,
-      headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
-      body: SuccessfullySubmittedPresenter.getHtml(contactFormFields),
+    const emailService = new EmailService()
+
+    try {
+      await emailService.send({
+        sender: contactFormFields.email,
+        receiver: 'khitrov.maks@gmail.com',
+        subject: contactFormFields.name,
+        body: contactFormFields.question,
+      })
+
+      return {
+        statusCode: ResponseStatusCodes.OK,
+        headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
+        body: SuccessfullySubmittedPresenter.getHtml(contactFormFields),
+      }
+    } catch (e) {
+      return {
+        statusCode: ResponseStatusCodes.INTERNAL_SERVER_ERROR,
+        headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
+        body: Error.getHtml(JSON.stringify(e)),
+      }
     }
   }
-
-  return response
 }
