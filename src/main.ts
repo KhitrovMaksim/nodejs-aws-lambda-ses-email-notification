@@ -1,18 +1,20 @@
 import { ContactFormPresenter } from './presenter/contactForm.presenter'
 import { SuccessfullySubmittedPresenter } from './presenter/successfullySubmitted.presenter'
 import { ContactFormFields } from './ContactFormFields.interface'
-
-interface Event {
-  body: string
-  requestContext: {
-    http: {
-      method: string
-    }
-  }
-}
+import { Event } from './event.interface'
+import { ContentTypes } from './enums/http/contentTypes'
+import { Headers } from './enums/http/headers'
+import { ResponseStatusCodes } from './enums/http/responseStatusCodes'
+import { HttpResponse } from './httpResponse.interface'
 
 export const controller = async (event: Event) => {
   const httpMethod: string = event.requestContext.http.method
+
+  let response: HttpResponse = {
+    statusCode: ResponseStatusCodes.OK,
+    headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
+    body: ContactFormPresenter.getHtml(),
+  }
 
   if (httpMethod === 'POST') {
     const formDataCodedBase64 = event.body
@@ -23,18 +25,12 @@ export const controller = async (event: Event) => {
       email: formDataDecoded.split('&')[2].split('=')[1].replace('%40', '@'),
     }
 
-    return {
-      statusCode: 201,
-      headers: { 'Content-Type': 'text/html' },
+    response = {
+      statusCode: ResponseStatusCodes.OK,
+      headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
       body: SuccessfullySubmittedPresenter.getHtml(contactFormFields),
     }
   }
 
-  if (httpMethod === 'GET') {
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'text/html' },
-      body: ContactFormPresenter.getHtml(),
-    }
-  }
+  return response
 }
