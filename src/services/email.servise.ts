@@ -24,7 +24,7 @@ export class EmailService implements Email {
       },
       Message: {
         Body: {
-          Text: {
+          Html: {
             Charset: Charsets.UTF_8,
             Data: data.body,
           },
