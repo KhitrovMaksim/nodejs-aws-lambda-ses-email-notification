@@ -1,14 +1,14 @@
-import { ContactFormPresenter } from './presenter/contactForm.presenter'
-import { SuccessfullySubmittedPresenter } from './presenter/successfullySubmitted.presenter'
-import { ContactFormFields } from './types/contactFormFields.type'
-import { EventLambda } from './types/eventLambda.type'
-import { ContentTypes } from './enums/http/contentTypes'
+import { ContactFormPresenter } from './presenter/contact-form.presenter'
+import { SuccessfullySubmittedPresenter } from './presenter/successfully-submitted.presenter'
+import { ContactFormFields } from './types/contact-form-fields.type'
+import { EventLambda } from './types/event-lambda.type'
+import { ContentTypes } from './enums/http/content-types'
 import { Headers } from './enums/http/headers'
-import { ResponseStatusCodes } from './enums/http/responseStatusCodes'
+import { ResponseStatusCodes } from './enums/http/response-status-codes'
 import { EmailService } from './services/email.servise'
 import { Error } from './presenter/error.presenter'
 import { config } from './config'
-import { HttpMethods } from './enums/http/httpMethods'
+import { HttpMethods } from './enums/http/http-methods'
 
 export const controller = async (event: EventLambda) => {
   const httpMethod: string = event.requestContext.http.method

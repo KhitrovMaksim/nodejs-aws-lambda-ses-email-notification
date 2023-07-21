@@ -1,8 +1,8 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 import { Email } from './email.interface'
-import { SesRegions } from '../enums/aws/sesRegions'
+import { SesRegions } from '../enums/aws/ses-regions'
 import { Charsets } from '../enums/text/charsets'
-import { EmailData } from '../types/emailData.type'
+import { EmailData } from '../types/email-data.type'
 
 export class EmailService implements Email {
   sesClient: SESClient

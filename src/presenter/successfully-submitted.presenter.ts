@@ -1,4 +1,4 @@
-import { ContactFormFields } from '../types/contactFormFields.type'
+import { ContactFormFields } from '../types/contact-form-fields.type'
 
 export class SuccessfullySubmittedPresenter {
   static getHtml(contactFormFields: ContactFormFields): string {
