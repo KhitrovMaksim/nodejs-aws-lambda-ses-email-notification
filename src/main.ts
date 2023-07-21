@@ -9,6 +9,7 @@ import { EmailService } from './services/email.servise'
 import { Error } from './presenter/error.presenter'
 import { config } from './config'
 import { HttpMethods } from './enums/http/http-methods'
+import { ContactFormDecoder } from './services/contact-form-decoder.service'
 
 export const controller = async (event: EventLambda) => {
   const httpMethod: string = event.requestContext.http.method
@@ -23,13 +24,7 @@ export const controller = async (event: EventLambda) => {
 
   if (httpMethod === HttpMethods.POST) {
     const formDataCodedBase64 = event.body
-    const formDataDecoded: string = new Buffer(formDataCodedBase64, 'base64').toString()
-    const contactFormFields: ContactFormFields = {
-      question: formDataDecoded.split('&')[0].split('=')[1],
-      name: formDataDecoded.split('&')[1].split('=')[1],
-      email: formDataDecoded.split('&')[2].split('=')[1].replace('%40', '@'),
-    }
-
+    const contactFormFields: ContactFormFields = ContactFormDecoder.decode(formDataCodedBase64)
     const emailService = new EmailService()
 
     try {
