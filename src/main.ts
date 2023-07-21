@@ -7,6 +7,7 @@ import { Headers } from './enums/http/headers'
 import { ResponseStatusCodes } from './enums/http/responseStatusCodes'
 import { EmailService } from './services/email.servise'
 import { Error } from './presenter/error.presenter'
+import { config } from './config'
 
 export const controller = async (event: EventLambda) => {
   const httpMethod: string = event.requestContext.http.method
@@ -32,8 +33,8 @@ export const controller = async (event: EventLambda) => {
 
     try {
       await emailService.send({
-        sender: contactFormFields.email,
-        receiver: 'khitrov.maks@gmail.com',
+        sender: config.emailSender,
+        receiver: contactFormFields.email,
         subject: contactFormFields.name,
         body: contactFormFields.question,
       })
