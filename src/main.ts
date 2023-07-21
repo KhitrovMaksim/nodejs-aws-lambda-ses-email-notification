@@ -8,11 +8,12 @@ import { ResponseStatusCodes } from './enums/http/responseStatusCodes'
 import { EmailService } from './services/email.servise'
 import { Error } from './presenter/error.presenter'
 import { config } from './config'
+import { HttpMethods } from './enums/http/httpMethods'
 
 export const controller = async (event: EventLambda) => {
   const httpMethod: string = event.requestContext.http.method
 
-  if (httpMethod === 'GET') {
+  if (httpMethod === HttpMethods.GET) {
     return {
       statusCode: ResponseStatusCodes.OK,
       headers: { [Headers.CONTENT_TYPE]: ContentTypes.TEXT_HTML },
@@ -20,7 +21,7 @@ export const controller = async (event: EventLambda) => {
     }
   }
 
-  if (httpMethod === 'POST') {
+  if (httpMethod === HttpMethods.POST) {
     const formDataCodedBase64 = event.body
     const formDataDecoded: string = new Buffer(formDataCodedBase64, 'base64').toString()
     const contactFormFields: ContactFormFields = {
