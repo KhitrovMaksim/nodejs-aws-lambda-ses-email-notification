@@ -7,7 +7,7 @@ import { EmailData } from '../types/email-data.type'
 export class EmailService implements Email {
   sesClient: SESClient
   constructor() {
-    this.sesClient = new SESClient({ region: SesRegions.northernVirginia })
+    this.sesClient = new SESClient({ region: SesRegions.NORTHERN_VIRGINIA })
   }
 
   async send(data: EmailData) {

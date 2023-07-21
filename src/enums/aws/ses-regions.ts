@@ -1,3 +1,3 @@
 export const enum SesRegions {
-  northernVirginia = 'us-east-1',
+  NORTHERN_VIRGINIA = 'us-east-1',
 }
