@@ -9,5 +9,11 @@ Design and implement AWS Lambda what can be used for handling contact form with 
 
 #### AWS Lambda runtime settings:
 - **Language**: Node.js 18.x.
-- **HandlerInfo**: src/index.controller
+- **HandlerInfo**: src/main.controller
 - **ArchitectureInfo**: x86_64
+
+#### AWS commands
+```shell
+npm i -D @types/aws-lambda
+```
+

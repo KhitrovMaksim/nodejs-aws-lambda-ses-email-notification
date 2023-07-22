@@ -5,8 +5,9 @@ node_modules/
 bower_components
 jspm_packages/
 
-# TypeScript cache
+# TypeScript
 *.tsbuildinfo
+build
 
 # Next.js build output
 .next
@@ -87,3 +88,4 @@ coverage
 
 # Output of 'npm pack'
 *.tgz
+*.zip
